@@ -81,3 +81,47 @@ def pauli_lcu_one_body_from_omega(omega, eta, tol=1e-12):
                     coeffs.append(coef)
                     
     return SparsePauliOp(paulis, coeffs)
+
+def potential_pauli_from_diag(V_diag):
+    length = len(V_diag)
+    num_bits = math.ceil(math.log2(length))
+    dim = 1 << num_bits
+
+    # padding
+    V_pad = np.zeros(dim)
+    V_pad[:length] = V_diag
+
+    pauli_dict = {}
+
+    for i in range(dim):
+        coeff = V_pad[i]
+        if coeff == 0.0:
+            continue
+
+        # 初始只有一个空字符串
+        paulis = {'': 1.0}
+
+        # 逐比特扩展
+        for k in range(num_bits):
+            bit = (i >> k) & 1
+            sign = -1.0 if bit == 1 else 1.0
+
+            new_paulis = {}
+            for pstr, c in paulis.items():
+                # I 分支
+                p_I = pstr + 'I'
+                new_paulis[p_I] = new_paulis.get(p_I, 0.0) + c * 0.5
+
+                # Z 分支
+                p_Z = pstr + 'Z'
+                new_paulis[p_Z] = new_paulis.get(p_Z, 0.0) + c * 0.5 * sign
+
+            paulis = new_paulis
+
+        # 累加到全局字典   
+        for pstr, c in paulis.items():
+            pauli_dict[pstr] = pauli_dict.get(pstr, 0.0) + coeff * c
+
+    labels = list(pauli_dict.keys())   
+    coeffs = np.array([pauli_dict[l] for l in labels], dtype=complex)    
+    return SparsePauliOp(labels, coeffs)

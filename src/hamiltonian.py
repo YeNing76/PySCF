@@ -1,3 +1,6 @@
+import numpy as np
+import math
+
 """
     Construct the symmetric Laplacian matrix following:
     (15)  L_mn = Ω_mn / (U_m * r_mn)

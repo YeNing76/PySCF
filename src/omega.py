@@ -4,8 +4,9 @@
 # 2026, 01, 24
 import math
 import numpy as np
+from src.hamiltonian import laplacian, coulombic_potential
 
-def omega_matr_fwht(vor, points, neighbors):
+def omega_matr_fwht(vor, points, neighbors, sigma, volumes):
     length = len(points)
     num_bits = math.ceil(math.log2(length))
     dim = 1 << num_bits

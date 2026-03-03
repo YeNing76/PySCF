@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.spatial import Voronoi
+from collections import defaultdict
 
 """
 The following function is to realize Eqn. (5) in the paper

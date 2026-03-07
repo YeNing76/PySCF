@@ -1,3 +1,8 @@
+import math
+import numpy as np
+import qiskit
+from qiskit.quantum_info import Pauli, SparsePauliOp, Statevector
+
 # This function is to realize bitwise dot
 # 2025-12-29
 def bitwise_dot(m, n, num_bits):

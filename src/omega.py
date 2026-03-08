@@ -57,7 +57,7 @@ def t_bar_matr(points, neighbors, sigma, volumes):
             Tbar[m, n] = -0.5 * L_sym[m, n]
 
         # add nuclear attraction to diagonal
-        Tbar[m, m] += -ele_nu[m] 
+        Tbar[m, m] += ele_nu[m] 
 
     return Tbar   
 

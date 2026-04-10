@@ -11,4 +11,11 @@ For this repository, it contains quantum chemistry/ quantum computing — specif
    * Combines radial and angular grid points to form a 3D real-space grid around a nucleus.
    * Uses scipy.spatial.Voronoi to partition space into Voronoi cells, which define local volumes for each grid point.
 3. **Hamiltonian Matrix Elements**
-   * \textbf{Kinetic energy} (lapl_matr, t_bar_matr): Discretized Laplacian using finite-difference-like stencils over Voronoi neighbors.
+   * **Kinetic energy** (lapl_matr, t_bar_matr): Discretized Laplacian using finite-difference-like stencils over Voronoi neighbors.
+   * **Coulombic potential** (coulombic_potential): Electron-nucleus attraction and electron-electron repulsion evaluated at grid points.
+4. **Pauli Mapping / Qubit Encoding**
+   * Converts the real-space Hamiltonian matrix into a SparsePauliOp (sum of tensor products of Pauli matrices) suitable for quantum simulation.
+   * Includes analysis of Pauli coefficient distributions, pruning by threshold, and Hermiticity checks.
+5. **VQE / Quantum Simulation**
+   * Uses Qiskit's VQE with a TwoLocal ansatz and SLSQP optimizer to find the ground-state energy.
+   * Uses ADAPT-VQE to find appropriate ansatz.

@@ -5,5 +5,10 @@ For this repository, it contains quantum chemistry/ quantum computing — specif
 
 # Main Sections:
 1. **Radial & Angular Grids (Section 1-2)**
-   * becke_radial_grid: Generates a radially streched grid using the Becke mapping (logarithmic streching towward the nucleus).
-   * Lebedev grids (lebedev_6, lebedev_14, )
+   * becke_radial_grid: Generates a radially streched grid using the Becke mapping (logarithmic streching toward the nucleus).
+   * Lebedev grids (lebedev_6, lebedev_14, lebedev_26, lebedev_50)：Spherical quadrature grids on the unit sphere with increasing accuracy, used for angular integration.
+2. **Voronoi Grid Construction (Section 3)**
+   * Combines radial and angular grid points to form a 3D real-space grid around a nucleus.
+   * Uses scipy.spatial.Voronoi to partition space into Voronoi cells, which define local volumes for each grid point.
+3. **Hamiltonian Matrix Elements**
+   * \textbf{Kinetic energy} (lapl_matr, t_bar_matr): Discretized Laplacian using finite-difference-like stencils over Voronoi neighbors.
